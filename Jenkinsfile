@@ -15,9 +15,9 @@ node('jenkins_micro_aws_slave') {
     customImage = docker.build "juliashub/deluge:${env.BUILD_NUMBER}"
 
   }
-  stage('Run Tests') {
-    sh "docker run --rm ${customImage.id} test"
-  }
+//   stage('Run Tests') {
+//     sh "docker run --rm ${customImage.id} test"
+//   }
   stage('Push to Docker Hub') { // Run the built image
     withDockerRegistry(credentialsId: 'dockerhub-julia') {
         customImage.push()
