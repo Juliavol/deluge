@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deluge
+  labels:
+    k8s-app: deluge
+  namespace: default
+  annotations:
+    consul.hashicorp.com/service-name: "deluge"
+    consul.hashicorp.com/service-tags: "deluge-svc,k8s-service"
+    consul.hashicorp.com/service-port: "http"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: deluge
+  template:
+    metadata:
+      labels:
+        k8s-app: deluge
+    spec:
+      containers:
+      - name: deluge
+        image: juliashub/deluge:1
+        env:
+        - name: DB_HOSTNAME
+          value: deluge-db-mysql.service.consul
+        - name: DB_USERNAME
+          value: root
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: deluge-db-mysql
+              key: mysql-root-password
+        - name: DB_HOST
+          value:
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 8112
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi

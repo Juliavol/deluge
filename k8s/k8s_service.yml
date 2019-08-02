@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: deluge-service
+  annotations:
+    consul.hashicorp.com/service-name: "deluge"
+    consul.hashicorp.com/service-tags: "deluge-svc,k8s-service"
+    consul.hashicorp.com/service-port: "http"
+  labels:
+    k8s-app: deluge
+  namespace: default
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8112
+    protocol: TCP
+  selector:
+    k8s-app: deluge
