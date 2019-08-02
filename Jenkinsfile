@@ -7,7 +7,7 @@ node('jenkins_micro_aws_slave') {
   def DockerImage = "deluge:v1.0"
   def customImage = null
   stage('Git') { // Get code from GitLab repository
-    git branch: 'master',
+    git branch: 'develop',
       url: 'https://github.com/Juliavol/deluge.git'
   }
 
