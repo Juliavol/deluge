@@ -21,17 +21,8 @@ spec:
     spec:
       containers:
       - name: deluge
-        image: juliashub/deluge:1
+        image: juliashub/deluge:7
         env:
-        - name: DB_HOSTNAME
-          value: deluge-db-mysql.service.consul
-        - name: DB_USERNAME
-          value: root
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: deluge-db-mysql
-              key: mysql-root-password
         - name: DB_HOST
           value:
         ports:

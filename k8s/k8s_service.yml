@@ -10,7 +10,7 @@ metadata:
     k8s-app: deluge
   namespace: default
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - name: http
     port: 80
@@ -18,3 +18,5 @@ spec:
     protocol: TCP
   selector:
     k8s-app: deluge
+
+
